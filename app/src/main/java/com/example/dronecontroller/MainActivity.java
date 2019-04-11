@@ -13,6 +13,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private ProgressDialog progress;
+    private ImageView mHome;
     // SPP UUID service - this should work for most devices
     private static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private boolean isBtConnected = false;
@@ -34,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mHome=(ImageView)findViewById(R.id.homebtn);
+
+        mHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,home.class);
+                startActivity(intent);
+
+            }
+        });
 
         //Get MAC address and device name from the DeviceList via EXTRA after creating Intent
         Intent intent = getIntent();
@@ -85,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                droneCommand("Q");
+                droneCommand("S");
                 disconnectBT();
             }
         });
